@@ -54,3 +54,21 @@ ansible-playbook -i inventory.ini PLAYBOOKS/shutdown_ubuntu.yaml
 ## Notes
 - The `ec2_create.yaml` playbook runs locally on the controller (`hosts: localhost`).
 - If you use Ansible Vault, place secrets in `group_vars` or an encrypted file and provide the vault password from `vault.pass`.
+
+### Step 1 — Get Your EC2 Public IPs
+Go to AWS Console and grab the public IPs of your 3 Ansible instances:
+-------------------------------------------------------------------------------------
+ssh-copy-id -f "-o IdentityFile ~/ansible_ec2.pem" ubuntu@32.197.181.94`
+ssh-copy-id -f "-o IdentityFile ~/ansible_ec2.pem" ubuntu@44.205.1.146
+ssh-copy-id -f "-o IdentityFile ~/ansible_ec2.pem" ec2_user@3.239.207.141
+-------------------------------------------------------------------------------------
+### Step 3 — Test Passwordless SSH
+-------------------------------------------------------------------------------------
+ssh ubuntu@32.197.181.94
+
+### Before vs After
+BEFORE ssh-copy-id:
+ssh -i ~/ansible_ec2.pem ubuntu@3.239.207.141
+
+AFTER ssh-copy-id:
+ssh ubuntu@3.239.207.141
